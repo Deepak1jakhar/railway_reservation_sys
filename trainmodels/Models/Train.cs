@@ -41,5 +41,7 @@ namespace trainmodels.Models
 
         [Required(ErrorMessage = "Available seats is required.")]
         public int AvailableSeats { get; set; }
+
+        public ICollection<Booking> Bookings { get; set; }
     }
 }

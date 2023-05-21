@@ -46,6 +46,7 @@ namespace trainmodels.Services.Repository
             }
         }
 
+        
         public async Task<Train> GetTrainByIdAsync(int id)
         {
             var obj = _db.trains.Find(id);
@@ -58,27 +59,17 @@ namespace trainmodels.Services.Repository
 
         public List<Train> GetTrainBySourceDestinationAsync(string source, string destination)
         {
+
             var obj =  _db.trains.Where(t => t.Source == source && t.Destination == destination).ToList();
             return obj;
         }
 
-        public async Task<Train> UpdateTrainAsync(int id, Train train)
+        public async Task<Train> UpdateTrainAsync(Train train)
         {
-            var tr = _db.trains.FirstOrDefault(t=>t.TrainId == id);
-            if (tr == null)
-            {
-                throw new Exception("No train available to update");
-            }
-            tr.TrainName = train.TrainName;
-            tr.TrainId = train.TrainId;
-            tr.Source = train.Source;
-            tr.Destination = train.Destination;
-            tr.ArrivalTime = train.ArrivalTime;
-            tr.AvailableSeats = train.AvailableSeats;
-            tr.DepartureTime = train.DepartureTime;
-            tr.TotalSeats = train.TotalSeats;
+            _db.trains.Update(train);
             await _db.SaveChangesAsync();
-            return tr;
+            return train;
+
         }
     }
 }

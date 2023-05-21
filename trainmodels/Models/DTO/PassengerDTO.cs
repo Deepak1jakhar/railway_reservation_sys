@@ -5,8 +5,8 @@ namespace trainmodels.Models.DTO
     public class PassengerDTO
     {
         public int PassengerId { get; set; }
-        [ForeignKey("User")]
-        public int UserId { get; set; }
+        [ForeignKey("Booking")]
+        public int BookingId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }

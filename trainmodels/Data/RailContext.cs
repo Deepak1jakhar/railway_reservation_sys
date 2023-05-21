@@ -24,17 +24,6 @@ namespace trainmodels.Data
                 new Train {TrainId = 3, TrainName = "Express", Source = "Bangaluru", Destination = "Kolkata", DepartureTime = new DateTime(2023, 5, 1, 8, 0, 0), ArrivalTime = new DateTime(2023, 5, 1, 18, 0, 0), TotalSeats = 200, AvailableSeats = 150, Fare = 400 }
                 );
 
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    UserId= 1,
-                    FirstName = "Deepak",
-                    LastName = "Jakhar",
-                    Age = 22,
-                    Email = "Deepak@gmail.com",
-                    Password = "Deepak@123"
-                }
-                ) ;
             modelBuilder.Entity<Admin>().HasData(
                 new Admin
                 {

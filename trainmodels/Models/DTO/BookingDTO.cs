@@ -15,5 +15,6 @@ namespace trainmodels.Models.DTO
         public bool Status { get; set; }
         public int NumberOfTickets { get; set; }
         public float TotalFare { get; set; }
+
     }
 }

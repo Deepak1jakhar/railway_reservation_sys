@@ -18,6 +18,7 @@ namespace trainmodels.Models
         public bool Status { get; set; }
         public int NumberOfTickets { get; set; }
         public float TotalFare { get; set; }
+        public ICollection<Passenger> Passengers { get; set; }
         public User User { get; set; }
         public Train Train { get; set; }
     }

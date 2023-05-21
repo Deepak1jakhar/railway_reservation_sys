@@ -119,6 +119,9 @@ namespace trainmodels.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -135,12 +138,9 @@ namespace trainmodels.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("PassengerId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("BookingId");
 
                     b.ToTable("Passenger");
                 });
@@ -253,26 +253,27 @@ namespace trainmodels.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId");
 
                     b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            Age = 22,
-                            Email = "Deepak@gmail.com",
-                            FirstName = "Deepak",
-                            LastName = "Jakhar",
-                            Password = "Deepak@123"
-                        });
                 });
 
             modelBuilder.Entity("trainmodels.Models.Booking", b =>
                 {
                     b.HasOne("trainmodels.Models.Train", "Train")
-                        .WithMany()
+                        .WithMany("Bookings")
                         .HasForeignKey("TrainId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -290,20 +291,26 @@ namespace trainmodels.Migrations
 
             modelBuilder.Entity("trainmodels.Models.Passenger", b =>
                 {
-                    b.HasOne("trainmodels.Models.User", "user")
+                    b.HasOne("trainmodels.Models.Booking", null)
                         .WithMany("Passengers")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.Navigation("user");
+            modelBuilder.Entity("trainmodels.Models.Booking", b =>
+                {
+                    b.Navigation("Passengers");
+                });
+
+            modelBuilder.Entity("trainmodels.Models.Train", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 
             modelBuilder.Entity("trainmodels.Models.User", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Passengers");
                 });
 #pragma warning restore 612, 618
         }

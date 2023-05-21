@@ -5,9 +5,9 @@ namespace trainmodels.Repository
     public interface IPassenger
     {
         Passenger GetPassengerById(int id);
-        List<Passenger> GetPassengersByUserId(int userId);
         bool AddPassenger(Passenger passenger);
         void UpdatePassenger(Passenger passenger);
+        List<Passenger> GetPassengersByBookingId(int bookingId);
         bool DeletePassenger(int id);
     }
 }

@@ -23,6 +23,12 @@ namespace trainmodels.Services.Repository
 
         }
 
+        public List<Passenger> GetPassengersByBookingId(int bookingId)
+        {
+            var passengers = _db.passengers.Where(p=>p.BookingId == bookingId).ToList();
+            return passengers;
+        }
+
         public bool DeletePassenger(int id)
         {
             if (!_db.passengers.Any(p => p.PassengerId == id))
@@ -31,17 +37,13 @@ namespace trainmodels.Services.Repository
             }
             var obj = _db.passengers.Where(p => p.PassengerId == id).FirstOrDefault();
             _db.passengers.Remove(obj);
+            _db.SaveChanges();
             return true;
         }
 
         public Passenger GetPassengerById(int id)
         {
             return _db.passengers.Where(p => p.PassengerId == id).FirstOrDefault();
-        }
-
-        public List<Passenger> GetPassengersByUserId(int userId)
-        {
-            return _db.passengers.Where(p => p.UserId == userId).ToList();
         }
 
         public void UpdatePassenger(Passenger passenger)

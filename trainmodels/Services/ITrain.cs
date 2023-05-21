@@ -8,7 +8,7 @@ namespace trainmodels.Repository
         Task<Train> GetTrainByIdAsync(int id);
         List<Train> GetTrainBySourceDestinationAsync(string source, string destination);
         Task<Train> AddTrainAsync(Train train);
-        Task<Train> UpdateTrainAsync(int id,Train train);
+        Task<Train> UpdateTrainAsync(Train train);
         void DeleteTrainAsync(int id);
     }
 }

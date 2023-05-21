@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace trainmodels.Migrations
 {
     /// <inheritdoc />
-    public partial class tabledata : Migration
+    public partial class Tabledata : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,6 +59,9 @@ namespace trainmodels.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -105,7 +108,7 @@ namespace trainmodels.Migrations
                 {
                     PassengerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    BookingId = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
@@ -116,10 +119,10 @@ namespace trainmodels.Migrations
                 {
                     table.PrimaryKey("PK_Passenger", x => x.PassengerId);
                     table.ForeignKey(
-                        name: "FK_Passenger_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
+                        name: "FK_Passenger_Booking_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Booking",
+                        principalColumn: "BookingId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -138,11 +141,6 @@ namespace trainmodels.Migrations
                     { 3, new DateTime(2023, 5, 1, 18, 0, 0, 0, DateTimeKind.Unspecified), 150, new DateTime(2023, 5, 1, 8, 0, 0, 0, DateTimeKind.Unspecified), "Kolkata", 400, "Bangaluru", 200, "Express" }
                 });
 
-            migrationBuilder.InsertData(
-                table: "User",
-                columns: new[] { "UserId", "Age", "Email", "FirstName", "LastName", "Password" },
-                values: new object[] { 1, 22, "Deepak@gmail.com", "Deepak", "Jakhar", "Deepak@123" });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_TrainId",
                 table: "Booking",
@@ -154,9 +152,9 @@ namespace trainmodels.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Passenger_UserId",
+                name: "IX_Passenger_BookingId",
                 table: "Passenger",
-                column: "UserId");
+                column: "BookingId");
         }
 
         /// <inheritdoc />
@@ -166,10 +164,10 @@ namespace trainmodels.Migrations
                 name: "Admin");
 
             migrationBuilder.DropTable(
-                name: "Booking");
+                name: "Passenger");
 
             migrationBuilder.DropTable(
-                name: "Passenger");
+                name: "Booking");
 
             migrationBuilder.DropTable(
                 name: "Train");

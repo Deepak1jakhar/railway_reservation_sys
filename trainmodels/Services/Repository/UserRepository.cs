@@ -1,6 +1,9 @@
-﻿using trainmodels.Data;
+﻿using System.Text.RegularExpressions;
+using System.Text;
+using trainmodels.Data;
 using trainmodels.Models;
 using trainmodels.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace trainmodels.Services.Repository
 {
@@ -23,20 +26,11 @@ namespace trainmodels.Services.Repository
             if (user != null)
             {
                 _rc.users.Remove(user);
+                _rc.SaveChanges();
                 return true;
             }
             return false;
 
-        }
-
-        public User GetUserByEmail(string email)
-        {
-            var user = _rc.users.FirstOrDefault(u => u.Email == email);
-            if (user != null)
-            {
-                return user;
-            }
-            return null;
         }
 
         public User GetUserById(int id)
@@ -54,5 +48,6 @@ namespace trainmodels.Services.Repository
             _rc.users.Update(user);
             _rc.SaveChanges();
         }
+
     }
 }
