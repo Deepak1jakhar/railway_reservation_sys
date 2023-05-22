@@ -99,7 +99,7 @@ namespace trainmodels.Controllers
                 {
                     return BadRequest(new { Message = pass });
                 }
-                var role = "Admin";
+                var role = "User";
 
                 //check email
                 var user = new User
@@ -107,14 +107,13 @@ namespace trainmodels.Controllers
                     FirstName = userobj.FirstName,
                     LastName = userobj.LastName,
                     Age = userobj.Age,
+                    Token = "",
                     UserName= userobj.UserName,
                     Email = userobj.Email,
                     Password = PasswordHasher.HashPassword(userobj.Password),
                     Role = role
                 };
-                var token = CreateJwt(user);
-                
-
+            
                 _u.AddUser(user);
                 return Ok(new { Message = "User Registered" });
             }
